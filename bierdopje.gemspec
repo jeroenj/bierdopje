@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = 'A ruby wrapper around the Bierdopje.com api'
 
   s.files         = Dir.glob('lib/**/*')
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.test_files    = Dir.glob('spec/**/*')
   s.require_paths = ['lib']
   s.add_dependency('rest-client', '~> 1.6.1')
   s.add_dependency('nokogiri', '~> 1.4.4')
