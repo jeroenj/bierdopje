@@ -1,6 +1,16 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe Bierdopje::Show do
+  describe "instance" do
+    describe "#episodes" do
+      it "should find all episodes for a given show" do
+        show = Bierdopje::Show.find 5517
+        show.episodes.collect(&:code).should include('S01E01')
+        show.episodes.collect(&:code).should include('S06E18')
+      end
+    end
+  end
+
   describe "#find" do
     it "should find the correct show based on the id" do
       show = Bierdopje::Show.find 5517
