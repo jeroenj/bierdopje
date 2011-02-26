@@ -1,7 +1,7 @@
 module Bierdopje
   class Episode < Base
     def self.attributes_names
-      [:id, :code, :show_name]
+      [:id, :season, :code, :show_name]
     end
     attr_accessor *attributes_names
 
@@ -12,6 +12,7 @@ module Bierdopje
     def initialize doc
       attributes = {
         :id => doc.at_xpath('episodeid').content,
+        :season => doc.at_xpath('season').content,
         :code => doc.at_xpath('formatted').content,
         :show_name => doc.at_xpath('showlink').content.match(/^http:\/\/www\.bierdopje\.com\/shows\/(.*)$/)[1]
       }
