@@ -37,6 +37,13 @@ module Bierdopje
         response = Nokogiri::XML.parse(get("GetShowByName/#{name}")).at_xpath('//response')
         Show.new response
       end
+
+      def search query
+        response = Nokogiri::XML.parse(get("FindShowByName/#{query}")).at_xpath('bierdopje/response')
+        response.xpath('results/result').collect do |result|
+          Show.new(result)
+        end
+      end
     end
   end
 end

@@ -27,4 +27,13 @@ describe Bierdopje::Show do
       show.name.should == 'Lost'
     end
   end
+
+  describe "search" do
+    it "should return all matches for the given search query" do
+      shows = Bierdopje::Show.search 'Lost'
+      shows.collect(&:id).should include('5517')
+      shows.collect(&:tvdb_id).should include('73739')
+      shows.collect(&:name).should include('Lost')
+    end
+  end
 end
