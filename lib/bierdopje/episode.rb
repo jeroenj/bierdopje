@@ -20,7 +20,7 @@ module Bierdopje
 
     class << self
       def find id
-        response = Nokogiri::XML.parse(get("GetEpisodeById/#{id}")).at_xpath('//response/results')
+        response = Nokogiri::XML.parse(get("GetEpisodeById/#{id}")).at_xpath('bierdopje/response/results')
         Episode.new response
       end
     end
