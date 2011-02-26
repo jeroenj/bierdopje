@@ -28,6 +28,11 @@ module Bierdopje
         Show.new response
       end
 
+      def find_by_tvdb_id id
+        response = Nokogiri::XML.parse(get("GetShowByTVDBID/#{id}")).at_xpath('//response')
+        Show.new response
+      end
+
       def find_by_name name
         response = Nokogiri::XML.parse(get("GetShowByName/#{name}")).at_xpath('//response')
         Show.new response
