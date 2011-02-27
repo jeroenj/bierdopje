@@ -9,6 +9,14 @@ module Bierdopje
       Show.find_by_name show_name
     end
 
+    def subtitles language=:nl
+      response = 
+Nokogiri::XML.parse(self.class.get("GetAllSubsForEpisode/#{id}/#{language}")).at_xpath('bierdopje/response')
+      response.xpath('results/result').collect do |result|
+        Subtitle.new(result)
+      end
+    end
+
     def initialize doc
       attributes = {
         :id => doc.at_xpath('episodeid').content,
