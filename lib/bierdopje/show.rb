@@ -26,6 +26,14 @@ module Bierdopje
       end
     end
 
+    def subtitles season, language=:nl
+      response = 
+Nokogiri::XML.parse(self.class.get("GetSubsForSeason/#{id}/#{season}/#{language}")).at_xpath('bierdopje/response')
+      response.xpath('results/result').collect do |result|
+        Subtitle.new(result)
+      end
+    end
+
     class << self
       def find id
         response = Nokogiri::XML.parse(get("GetShowById/#{id}")).at_xpath('bierdopje/response')

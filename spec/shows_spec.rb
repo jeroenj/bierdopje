@@ -18,6 +18,14 @@ describe Bierdopje::Show do
         episodes.collect(&:code).should_not include('S02E01')
       end
     end
+
+    describe "#subtitles" do
+      it "should find all subtitles within the given season for a given show" do
+        show = Bierdopje::Show.find 5517
+        subtitles = show.subtitles(1)
+        subtitles.collect(&:file_name).should include('Lost.S01E01.DVDRip.XviD.AC3-UnSeeN.srt')
+      end
+    end
   end
 
   describe "#find" do
