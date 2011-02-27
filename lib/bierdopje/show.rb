@@ -14,8 +14,12 @@ module Bierdopje
       super attributes
     end
 
-    def episodes
-      response = Nokogiri::XML.parse(self.class.get("GetAllEpisodesForShow/#{id}")).at_xpath('bierdopje/response')
+    def episodes attributes={}
+      response = if attributes[:season]
+        Nokogiri::XML.parse(self.class.get("GetEpisodesForSeason/#{id}/1")).at_xpath('bierdopje/response')
+      else
+        Nokogiri::XML.parse(self.class.get("GetAllEpisodesForShow/#{id}")).at_xpath('bierdopje/response')
+      end
 
       response.xpath('results/result').collect do |result|
         Episode.new(result)

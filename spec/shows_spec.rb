@@ -5,8 +5,17 @@ describe Bierdopje::Show do
     describe "#episodes" do
       it "should find all episodes for a given show" do
         show = Bierdopje::Show.find 5517
-        show.episodes.collect(&:code).should include('S01E01')
-        show.episodes.collect(&:code).should include('S06E18')
+        episodes = show.episodes
+        episodes.collect(&:code).should include('S01E01')
+        episodes.collect(&:code).should include('S06E18')
+      end
+
+      it "should find all episodes within the given season for a given show" do
+        show = Bierdopje::Show.find 5517
+        episodes = show.episodes(:season => 1)
+        episodes.count.should == 24
+        episodes.collect(&:code).should include('S01E01')
+        episodes.collect(&:code).should_not include('S02E01')
       end
     end
   end
