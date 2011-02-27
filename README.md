@@ -6,8 +6,7 @@ This is a gem which wraps the [Bierdopje](http://www.bierdopje.com/) API. It wil
 
 Basic usage will follow later together with documentation. For now, this is an overview of the methods you can use:
 
-* Show
-
+### Show
     Show.find id                  # => Will retrieve the Show based on it's bierdopje.com id
     Show.find_by_name name        # => Will retrieve the Show based on it's exact name
     Show.find_by_tvdb_id id       # => Will retrieve the Show based on it's id on tvdb.com
@@ -17,14 +16,14 @@ Basic usage will follow later together with documentation. For now, this is an o
     show.episodes(:season => id)  # => returns an array with all Episodes for the given season for this Show
     show.subtitles(season_number) # => returns an array with all Subtitles for the given season for this Show
 
-* Episode
+### Episode
 
     Episode.find id               # => Will retrieve the Episode based on it's bierdopje.com id
 
     episode.show                  # => Will retrieve the Show to which this Episode belongs
     episode.subtitles             # => returns an array with all Subtitles for this Episode
 
-* Subtitle
+### Subtitle
 
     Subtitle.find show_id, season_number, episode_number
                                   # => Will retrieve all Subtitles which fall in the given scope
