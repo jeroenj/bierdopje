@@ -1,9 +1,6 @@
 module Bierdopje
   class Subtitle < Base
-    def self.attributes_names
-      [:file_name, :file_size, :uploaded_at, :link]
-    end
-    attr_accessor *attributes_names
+    attr_accessor :file_name, :file_size, :uploaded_at, :link
 
     def initialize doc
       attributes = {
