@@ -1,9 +1,6 @@
 module Bierdopje
   class Show < Base
-    def self.attributes_names
-      [:id, :tvdb_id, :name]
-    end
-    attr_accessor *attributes_names
+    attr_accessor :id, :tvdb_id, :name
 
     def initialize doc
       attributes = {
