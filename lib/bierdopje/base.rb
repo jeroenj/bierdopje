@@ -6,9 +6,20 @@ module Bierdopje
       end
     end
 
+    protected
+    def fetch path
+      self.class.send :fetch, path
+    end
+
     class << self
-      def get path
-        RestClient.get "http://api.bierdopje.com/AD1E97978FD73FB3/#{path}"
+      protected
+      def fetch path
+        parse(path).at_xpath('bierdopje/response')
+      end
+
+      def parse path
+        response = RestClient.get "http://api.bierdopje.com/AD1E97978FD73FB3/#{path}"
+        Nokogiri::XML.parse response
       end
     end
   end

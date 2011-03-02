@@ -14,7 +14,7 @@ module Bierdopje
     # Retrieve Episodes that belong to this Show.
     def episodes season=nil
       path = season ? "GetEpisodesForSeason/#{id}/#{season}" : "GetAllEpisodesForShow/#{id}"
-      response = Nokogiri::XML.parse(self.class.get(path)).at_xpath('bierdopje/response')
+      response = fetch path
 
       response.xpath('results/result').collect do |result|
         Episode.new(result)
@@ -26,8 +26,7 @@ module Bierdopje
     # You can pass the language as an option.
     # This either has to be +:nl+ (default) or +:en+.
     def subtitles season, language=:nl
-      response = 
-Nokogiri::XML.parse(self.class.get("GetSubsForSeason/#{id}/#{season}/#{language}")).at_xpath('bierdopje/response')
+      response = fetch "GetSubsForSeason/#{id}/#{season}/#{language}"
       response.xpath('results/result').collect do |result|
         Subtitle.new(result)
       end
@@ -36,25 +35,25 @@ Nokogiri::XML.parse(self.class.get("GetSubsForSeason/#{id}/#{season}/#{language}
     class << self
       # Retrieve a Show based on it's id.
       def find id
-        response = Nokogiri::XML.parse(get("GetShowById/#{id}")).at_xpath('bierdopje/response')
+        response = fetch "GetShowById/#{id}"
         Show.new response
       end
 
       # Retrieve a Show based on it's thetvdb.com id.
       def find_by_tvdb_id id
-        response = Nokogiri::XML.parse(get("GetShowByTVDBID/#{id}")).at_xpath('bierdopje/response')
+        response = fetch "GetShowByTVDBID/#{id}"
         Show.new response
       end
 
       # Retrieve a Show based on it's exact name.
       def find_by_name name
-        response = Nokogiri::XML.parse(get("GetShowByName/#{name}")).at_xpath('bierdopje/response')
+        response = fetch "GetShowByName/#{name}"
         Show.new response
       end
 
       # Searches for Shows based on it's name.
       def search query
-        response = Nokogiri::XML.parse(get("FindShowByName/#{query}")).at_xpath('bierdopje/response')
+        response = fetch "FindShowByName/#{query}"
         response.xpath('results/result').collect do |result|
           Show.new(result)
         end

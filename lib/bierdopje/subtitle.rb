@@ -17,7 +17,7 @@ module Bierdopje
       # You can pass the language as an option.
       # This either has to be +:nl+ (default) or +:en+.
       def find show_id, season_number, episode_number, language=:nl
-        response = Nokogiri::XML.parse(get("GetAllSubsFor/#{show_id}/#{season_number}/#{episode_number}/#{language}")).at_xpath('bierdopje/response')
+        response = fetch "GetAllSubsFor/#{show_id}/#{season_number}/#{episode_number}/#{language}"
         response.xpath('results/result').collect do |result|
           Subtitle.new(result)
         end
