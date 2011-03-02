@@ -1,14 +1,15 @@
 module Bierdopje
   class Episode < Base
-    def self.attributes_names
-      [:id, :season, :episode, :code, :title, :summary, :air_date, :show_name]
-    end
-    attr_accessor *attributes_names
+    attr_accessor :id, :season, :episode, :code, :title, :summary, :air_date, :show_name
 
+    # Retrieve the Show this Episode belongs to.
     def show
       Show.find_by_name show_name
     end
 
+    # Retrieve all Subtitles for this Episode.
+    # You can pass the language as an option.
+    # This either has to be +:nl+ (default) or +:en+.
     def subtitles language=:nl
       response = 
 Nokogiri::XML.parse(self.class.get("GetAllSubsForEpisode/#{id}/#{language}")).at_xpath('bierdopje/response')
@@ -32,6 +33,7 @@ Nokogiri::XML.parse(self.class.get("GetAllSubsForEpisode/#{id}/#{language}")).at
     end
 
     class << self
+      # Retrieve an Episode based on it's id.
       def find id
         response = Nokogiri::XML.parse(get("GetEpisodeById/#{id}")).at_xpath('bierdopje/response/results')
         Episode.new response
