@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Bierdopje::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Jeroen Jacobs']
-  s.email       = 'jeroen@openminds.be'
+  s.email       = 'gems@jeroenj.be'
   s.homepage    = 'http://jeroenj.be'
   s.summary     = 'A ruby wrapper around the Bierdopje.com api'
   s.description = 'A ruby wrapper around the Bierdopje.com api'
