@@ -6,6 +6,14 @@ This is a gem which wraps the [Bierdopje](http://www.bierdopje.com/) API. It wil
 
 Basic usage will follow later together with documentation. For now, this is an overview of the methods you can use:
 
+First you'll need to register an API key at [Bierdopje.com](http://www.bierdopje.com/).
+
+Before you'll be able to make any calls you'll have to set up your API key:
+
+    Bierdopje::Base.api_key = "YOUR_API_KEY"
+
+Possible calls:
+
 ### Show
     Show.find id                  # => Will retrieve the Show based on it's bierdopje.com id
     Show.find_by_name name        # => Will retrieve the Show based on it's exact name
